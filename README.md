@@ -17,6 +17,7 @@ Two sets of ESP32C6 or ESP32H5 development boards.
 ```
 git clone https://github.com/nopnop2002/esp-idf-ieee802154
 cd esp-idf-ieee802154
+idf.py set-target {esp32c6/esp32H2}
 idf.py menuconfig
 idf.py flash monitor
 ```
@@ -35,7 +36,7 @@ idf.py flash monitor
  It must be unique on the sending and receiving sides.   
 - Peer Address   
  0xFFFF is the broadcast address.   
-- Show details pf received packets   
+- Show details of received packets   
  When enabled, details of received packets will be displayed.
 ```
 I (2274719) ieee802154: 0x40814ae1   41 88 19 42 42 ff ff 22  22 54 68 69 73 20 69 73  |A..BB..""This is|
