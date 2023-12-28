@@ -24,7 +24,7 @@ Select 802.15.4 TH
 
 # How to send packet.
 Change Channel,PAN ID,Destination Address Low,16-bit Source Address.   
-![digi-xbee-s2c-9](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/c2ebabe7-884d-4f0d-9297-2fcd3db9d646)   
+![digi-xbee-s2c-9](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/94fe2d0f-7c4c-4931-8d36-2ff931a54b10)
 
 Open terminal.   
 ![digi-xbee-s2c-10](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/c61a0ddb-d8a3-4fc9-90e7-6bc5a2974a84)   
