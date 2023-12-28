@@ -40,3 +40,10 @@ Add send packet.
 Send selected packet.   
 ![digi-xbee-s2c-14](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/ccfed819-dc3e-4df1-8b4e-22a7338341f7)   
 
+
+# Shield for UNO
+You can get such shields from eBay or AliExpress.   
+UNO and ESP32 can communicate directly via XBee S2C.   
+![ForUno](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/2a749423-80c6-4ffb-8c96-dd9419d9fe3d)
+
+
