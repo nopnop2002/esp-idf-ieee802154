@@ -1,0 +1,38 @@
+menu "Application Configuration"
+
+	config IEEE802514_PANID
+		hex "PAN ID (hex)"
+		default 0x4242
+		help
+			PAN ID.
+
+	config IEEE802514_CHANNEL
+		int "Channel (int)"
+		range 11 26
+		default 12
+		help
+			Channel.
+
+	config IEEE802514_MY_ADDR
+		hex "My Address (hex)"
+		range 0x0 0xfffe
+		default 0x1111 if IDF_TARGET_ESP32C6
+		default 0x2222 if IDF_TARGET_ESP32H2
+		help
+			My Address.
+
+	config IEEE802514_PEER_ADDR
+		hex "Peer Address (hex)"
+		range 0x0 0xffff
+		default 0xFFFF
+		help
+			Peer Address.
+			0xFFFF is the broadcast address.
+
+	config PRINT_PACKET
+		bool "Show details of received packets"
+		default n
+		help
+			Show details of received packets.
+
+endmenu 
