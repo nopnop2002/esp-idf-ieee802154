@@ -98,7 +98,8 @@ static void receive_packet_task(void *pvParameters) {
 		if (ieee802154_packet.fcs->frameType == FRAME_TYPE_DATA) {
 			ESP_LOGI(TAG, "ieee802154_packet.data_length=%d", ieee802154_packet.data_length);
 			dump(ieee802154_packet.data, ieee802154_packet.data_length);
-			ESP_LOGI(TAG, "[%.*s]", ieee802154_packet.data_length, ieee802154_packet.data);
+			ESP_LOGI(TAG, "Received packet from 0x%04x", ieee802154_packet.short_src_addr);
+			ESP_LOGI(TAG, "Received payload is [%.*s]", ieee802154_packet.data_length, ieee802154_packet.data);
 		}
 	}
 
