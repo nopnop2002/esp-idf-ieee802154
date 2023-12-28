@@ -43,10 +43,12 @@ Send selected packet.
 
 # Shield for UNO
 You can get such shields from eBay or AliExpress.   
+The output to the UNO's Serial port becomes the input to the wireless module, and the output from the wireless module becomes the input to the UNO's Serial port.   
 UNO and ESP32 can communicate directly via XBee S2C.   
 ![ForUno](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/2a749423-80c6-4ffb-8c96-dd9419d9fe3d)
 
 # Base board for NANO
 You can get such base board from eBay or AliExpress.   
+The output to the NANO's Serial port becomes the input to the wireless module, and the output from the wireless module becomes the input to the NANO's Serial port.   
 NANO and ESP32 can communicate directly via XBee S2C.   
 ![ForNano](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/d596b8e9-fe05-4345-bcdf-d692ef8de8a5)
