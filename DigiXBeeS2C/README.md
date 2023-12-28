@@ -17,6 +17,8 @@ Start XCTU and select a port.
 
 Update firmware.   
 ![digi-xbee-s2c-6](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/552db5d4-bf95-4469-897e-9184050b4da1)   
+
+Select 802.15.4 TH   
 ![digi-xbee-s2c-7](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/609aedec-dc35-4112-a8a9-e3e8fc534491)   
 ![digi-xbee-s2c-8](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/6fe7f098-69e6-4325-8066-68ba5aca817b)   
 
