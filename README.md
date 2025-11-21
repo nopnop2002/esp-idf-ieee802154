@@ -12,13 +12,13 @@ Thanks to Hugo Trippaers.
 ESP-IDF V5.x.   
 
 # Hardware requirements
-Two sets of ESP32C6 or ESP32H5 development boards.   
+Two sets of ESP32C6 or ESP32H2 development boards.   
 
 # Installation
 ```
 git clone https://github.com/nopnop2002/esp-idf-ieee802154
 cd esp-idf-ieee802154
-idf.py set-target {esp32c6/esp32H2}
+idf.py set-target {esp32c6/esp32h2}
 idf.py menuconfig
 idf.py flash monitor
 ```
