@@ -5,8 +5,9 @@ ESP-IDF includes [this](https://github.com/espressif/esp-idf/tree/master/compone
 But there is no example code in ESP-IDF.   
 I used [this](https://github.com/espressif/esp-idf/tree/master/examples/ieee802154/ieee802154_cli/components/cmd_ieee802154) as a reference.   
 
-# Software requirements
-ESP-IDF V5.x.   
+# Software requirements   
+ESP-IDF V5.0 or later.   
+ESP-IDF V4.4 release branch reached EOL in July 2024.   
 
 # Hardware requirements
 Two sets of ESP32C6 or ESP32H2 development boards.   
