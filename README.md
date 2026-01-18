@@ -31,15 +31,15 @@ idf.py flash monitor
  It must be the same on the sending and receiving sides.   
 - Peer Address   
  0xFFFF is the broadcast address.   
- You can specify a specific address.
+ You can specify a specific address.   
 
 ![Image](https://github.com/user-attachments/assets/202f45ca-dd25-4f19-ad0b-a33ae7677e8f)
 - My Address   
  It must be unique on the sending and receiving sides.   
- By default it is generated from the Bluetooth MAC address.   
- You can specify a specific address.
+ By default it is automatically generated from the Bluetooth MAC address.   
+ You can specify a specific address.   
 
-![Image](https://github.com/user-attachments/assets/eac81a43-f6c9-43ca-906a-ac83becd63b4)
+![Image](https://github.com/user-attachments/assets/ab678604-fdea-42c7-a98a-1efb0e05c011)
 - Show details of received packets   
  When enabled, details of received packets will be displayed.
 ```
