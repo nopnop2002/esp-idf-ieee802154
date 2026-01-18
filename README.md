@@ -3,10 +3,7 @@ IEEE802.15.4 communication example for ESP-IDF.
 
 ESP-IDF includes [this](https://github.com/espressif/esp-idf/tree/master/components/ieee802154) IEEE802.15.4 communication components.   
 But there is no example code in ESP-IDF.   
-I used these as references.   
-Thanks to Hugo Trippaers.   
-- https://github.com/spark404/ieee802154-sender   
-- https://github.com/spark404/ieee802154-receiver   
+I used [this](https://github.com/espressif/esp-idf/tree/master/examples/ieee802154/ieee802154_cli/components/cmd_ieee802154) as a reference.   
 
 # Software requirements
 ESP-IDF V5.x.   
