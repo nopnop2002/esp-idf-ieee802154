@@ -22,19 +22,24 @@ idf.py flash monitor
 ```
 
 # Configuration
-
-![config-top](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/46ca2c4e-e91b-4134-aa73-c49f66039f7f)
-![config-app-1](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/457aa26b-9f17-4eaf-8f74-0e61ea7adf04)
-![config-app-2](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/9b999480-5b50-4617-9d3f-7c5e1e8566ae)
+![Image](https://github.com/user-attachments/assets/b3a8317a-e6d8-4910-881b-6e35a2d25a56)
+![Image](https://github.com/user-attachments/assets/33a92660-5367-4b48-8b9e-89ce1248711f)
 
 - PAN ID   
  It must be the same on the sending and receiving sides.   
 - Channel   
  It must be the same on the sending and receiving sides.   
-- My Address   
- It must be unique on the sending and receiving sides.   
 - Peer Address   
  0xFFFF is the broadcast address.   
+ You can specify a specific address.
+
+![Image](https://github.com/user-attachments/assets/202f45ca-dd25-4f19-ad0b-a33ae7677e8f)
+- My Address   
+ It must be unique on the sending and receiving sides.   
+ By default it is generated from the Bluetooth MAC address.   
+ You can specify a specific address.
+
+![Image](https://github.com/user-attachments/assets/eac81a43-f6c9-43ca-906a-ac83becd63b4)
 - Show details of received packets   
  When enabled, details of received packets will be displayed.
 ```

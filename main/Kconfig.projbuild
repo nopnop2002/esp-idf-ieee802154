@@ -13,7 +13,14 @@ menu "Application Configuration"
 		help
 			Channel.
 
+	config MANUAL_SETTING
+		bool "You specify My Address"
+		default false
+		help
+			You specify My Address.
+
 	config IEEE802514_MY_ADDR
+		depends on MANUAL_SETTING
 		hex "My Address (hex)"
 		range 0x0 0xfffe
 		default 0x1111 if IDF_TARGET_ESP32C6

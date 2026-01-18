@@ -39,52 +39,33 @@
 StreamBufferHandle_t xMessageBuffer = NULL;
 
 void esp_ieee802154_receive_done(uint8_t* frame, esp_ieee802154_frame_info_t* frame_info) {
-	ESP_EARLY_LOGI(RADIO_TAG, "rx OK, received %d bytes", frame[0]);
+	ESP_EARLY_LOGI(RADIO_TAG, "Rx Done %d bytes", frame[0]);
 	xMessageBufferSendFromISR(xMessageBuffer, frame, frame[0], NULL);
+	esp_ieee802154_receive_handle_done(frame);
 }
 
 void esp_ieee802154_receive_failed(uint16_t error) {
-	ESP_EARLY_LOGI(RADIO_TAG, "rx failed, error %d", error);
+	ESP_EARLY_LOGE(RADIO_TAG, "rx failed, error %d", error);
 }
 
 void esp_ieee802154_receive_sfd_done(void) {
-	ESP_EARLY_LOGI(RADIO_TAG, "rx sfd done, Radio state: %d", esp_ieee802154_get_state());
+	ESP_EARLY_LOGD(RADIO_TAG, "rx sfd done, Radio state: %d", esp_ieee802154_get_state());
 }
+
 void esp_ieee802154_transmit_done(const uint8_t *frame, const uint8_t *ack, esp_ieee802154_frame_info_t *ack_frame_info) {
-	ESP_EARLY_LOGI(RADIO_TAG, "tx OK, sent %d bytes, ack %d", frame[0], ack != NULL);
+	ESP_EARLY_LOGI(RADIO_TAG, "Tx Done %d bytes", frame[0]);
+	if (ack != NULL) {
+		ESP_EARLY_LOGI(RADIO_TAG, "Rx ack %d bytes", ack[0]);
+		esp_ieee802154_receive_handle_done(ack);
+	}
 }
 
 void esp_ieee802154_transmit_failed(const uint8_t *frame, esp_ieee802154_tx_error_t error) {
-	ESP_EARLY_LOGI(RADIO_TAG, "tx failed, error %d", error);
+	ESP_EARLY_LOGE(RADIO_TAG, "the Frame Transmission failed, Failure reason: %d", error);
 }
 
 void esp_ieee802154_transmit_sfd_done(uint8_t *frame) {
-	ESP_EARLY_LOGI(RADIO_TAG, "tx sfd done");
-}
-
-void dump(uint8_t *dt, int n)
-{
-	uint16_t clm = 0;
-	uint8_t data;
-	uint32_t saddr =0;
-	uint32_t eaddr =n-1;
-
-	printf("----------------------------------------------------------\n");
-	uint32_t addr;
-	for (addr = saddr; addr <= eaddr; addr++) {
-		data = dt[addr];
-		if (clm == 0) {
-			printf("%05"PRIx32": ",addr);
-		}
-		printf("%02x ",data);
-		clm++;
-		if (clm == 16) {
-			printf("\n");
-			clm = 0;
-		}
-	}
-	if (clm != 0) printf("\n");
-	printf("----------------------------------------------------------\n");
+	ESP_EARLY_LOGD(RADIO_TAG, "tx sfd done, Radio state: %d", esp_ieee802154_get_state());
 }
 
 static void receive_packet_task(void *pvParameters) {
@@ -94,39 +75,43 @@ static void receive_packet_task(void *pvParameters) {
 		size_t readBytes = xMessageBufferReceive(xMessageBuffer, packet, sizeof(packet), portMAX_DELAY);
 		if (readBytes == 0) break;
 		ieee802154_analysis_packet(&packet[1], packet[0], &ieee802154_packet);
-		ESP_LOG_BUFFER_HEXDUMP(TAG, ieee802154_packet.fcs, sizeof(uint16_t), ESP_LOG_DEBUG);
+		ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), ieee802154_packet.fcs, sizeof(uint16_t), ESP_LOG_DEBUG);
 		if (ieee802154_packet.fcs->frameType == FRAME_TYPE_DATA) {
-			ESP_LOGI(TAG, "ieee802154_packet.data_length=%d", ieee802154_packet.data_length);
-			dump(ieee802154_packet.data, ieee802154_packet.data_length);
-			ESP_LOGI(TAG, "Received packet from 0x%04x", ieee802154_packet.short_src_addr);
-			ESP_LOGI(TAG, "Received payload is [%.*s]", ieee802154_packet.data_length, ieee802154_packet.data);
+			ESP_LOGI(pcTaskGetName(NULL), "ieee802154_packet.data_length=%d", ieee802154_packet.data_length);
+			ESP_LOGI(pcTaskGetName(NULL), "Received packet from 0x%04x", ieee802154_packet.short_src_addr);
+			ESP_LOGI(pcTaskGetName(NULL), "Received payload is [%.*s]", ieee802154_packet.data_length, ieee802154_packet.data);
 		}
 	}
 
-	ESP_LOGE(__FUNCTION__, "Terminated");
+	ESP_LOGE(pcTaskGetName(NULL), "Terminated");
 	vTaskDelete(NULL);
 }
 
 static void send_packet_task(void *pvParameters) {
 	uint16_t peer_short = CONFIG_IEEE802514_PEER_ADDR;
-	while (true) {
-		uint8_t payload[128];
+	uint8_t payload[128];
+
+	// Read Bluetooth MAC address
+	uint8_t mac[6] = {0};
+	ESP_ERROR_CHECK(esp_read_mac(mac, ESP_MAC_BT));
+	ESP_LOGI(pcTaskGetName(NULL), "mac=" MACSTR, MAC2STR(mac));
 #if CONFIG_IDF_TARGET_ESP32C6
-		strcpy((char *)payload, "This is ESP32C6");
-		size_t payload_length = strlen((char *)payload);
+	//strcpy((char *)payload, "This is ESP32C6");
+	sprintf((char *)payload, "This is ESP32C6 (" MACSTR ")", MAC2STR(mac));
+	size_t payload_length = strlen((char *)payload);
 #endif
 #if CONFIG_IDF_TARGET_ESP32H2
-		strcpy((char *)payload, "This is ESP32H2");
-		size_t payload_length = strlen((char *)payload);
+	//strcpy((char *)payload, "This is ESP32H2");
+	sprintf((char *)payload, "This is ESP32H2 (" MACSTR ")", MAC2STR(mac));
+	size_t payload_length = strlen((char *)payload);
 #endif
-		//memcpy((char *)payload, "This is ESP32H2", 10);
-		//size_t payload_length = sizeof(payload);
+	while (true) {
 		ieee802154_send_short(peer_short, payload, payload_length);
 		vTaskDelay(pdMS_TO_TICKS(5000));
 	}
 
 	// Never come here.
-	ESP_LOGE(__FUNCTION__, "Terminated");
+	ESP_LOGE(pcTaskGetName(NULL), "Terminated");
 	vTaskDelete(NULL);
 }
 
@@ -165,7 +150,20 @@ void app_main() {
 	esp_ieee802154_set_extended_address(eui64_rev);
 
 	// Set short address
+#if CONFIG_MANUAL_SETTING
+	ESP_LOGI(TAG, "my_short_address=0x%x", CONFIG_IEEE802514_MY_ADDR);
 	esp_ieee802154_set_short_address(CONFIG_IEEE802514_MY_ADDR);
+#else
+	// Read Bluetooth MAC address
+	uint8_t mac[6] = {0};
+	//ESP_ERROR_CHECK(esp_read_mac(mac, 2));
+	ESP_ERROR_CHECK(esp_read_mac(mac, ESP_MAC_BT));
+	ESP_LOGI(TAG, "mac=" MACSTR, MAC2STR(mac));
+	uint16_t my_short_address = mac[4] * 256 + mac[5];
+	ESP_LOGI(TAG, "mac[4]=0x%x mac[5]=0x%x", mac[4], mac[5]);
+	ESP_LOGI(TAG, "my_short_address=0x%x", my_short_address);
+	esp_ieee802154_set_short_address(my_short_address);
+#endif
 
 	// Start receiver
 	ESP_ERROR_CHECK(esp_ieee802154_receive());
@@ -182,6 +180,6 @@ void app_main() {
 	ESP_LOGI(TAG, "Ready, panId=0x%04x, channel=%d, myAddr=0x%04x",
 		 esp_ieee802154_get_panid(), esp_ieee802154_get_channel(), esp_ieee802154_get_short_address());
 
-	xTaskCreate(&send_packet_task, "TX", 1024*3, NULL, 5, NULL);
+	xTaskCreate(&send_packet_task, "TX", 1024*4, NULL, 5, NULL);
 	xTaskCreate(&receive_packet_task, "RX", 1024*5, NULL, 5, NULL);
 }
