@@ -20,7 +20,7 @@ They support the IEEE 802.15.4-2015 protocol.
 ```
 git clone https://github.com/nopnop2002/esp-idf-ieee802154
 cd esp-idf-ieee802154
-idf.py set-target {esp32c6/esp32h2}
+idf.py set-target {esp32c5/esp32c6/esp32h2}
 idf.py menuconfig
 idf.py flash monitor
 ```
