@@ -24,6 +24,12 @@ Select 802.15.4 TH
 
 # How to send packet.
 Change Channel,PAN ID,Destination Address Low,16-bit Source Address.   
+- Channel   
+ It must be the same as the ESP32 side.   
+ Specify in hexadecimal. Channel 12 is 0x0c.   
+- PAN ID   
+ It must be the same as the ESP32 side.   
+
 ![digi-xbee-s2c-9](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/94fe2d0f-7c4c-4931-8d36-2ff931a54b10)
 
 Open terminal.   
