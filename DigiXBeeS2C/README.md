@@ -42,7 +42,7 @@ Open port.
 Now you are ready to receive.   
 ![digi-xbee-s2c-11](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/97b39733-1dc5-4db0-94c3-cf26ef82e7e8)   
 
-XBeeS2c receive packet from ESP32.   
+XBee S2c receive packet from ESP32.   
 ![Image](https://github.com/user-attachments/assets/ae2aecf1-c74e-4522-b88b-c7805b18786a)   
 
 Add send packet.   
@@ -52,7 +52,7 @@ Add send packet.
 Send selected packet.   
 ![Image](https://github.com/user-attachments/assets/5180a707-7e0f-4bc2-b1ee-78ec99d0becb)
 
-ESP32 receive packet from XBeeS2C.   
+ESP32 receive packet from XBee S2C.   
 ![Image](https://github.com/user-attachments/assets/d06d32bf-1d82-4b6f-9efc-31bea36f3f1d)
 
 # Shield for UNO
