@@ -31,7 +31,7 @@ idf.py flash monitor
  It must be the same on the sending and receiving sides.   
 - Peer Address   
  0xFFFF is the broadcast address.   
- You can specify a specific address.   
+ You can specify a unicast address.   
 
 ![Image](https://github.com/user-attachments/assets/202f45ca-dd25-4f19-ad0b-a33ae7677e8f)
 - My Address   
