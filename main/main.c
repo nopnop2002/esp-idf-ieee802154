@@ -95,13 +95,15 @@ static void send_packet_task(void *pvParameters) {
 	uint8_t bt_mac_addr[6] = {0};
 	ESP_ERROR_CHECK(esp_read_mac(bt_mac_addr, ESP_MAC_BT));
 	ESP_LOGI(pcTaskGetName(NULL), "bt_mac_addr=" MACSTR, MAC2STR(bt_mac_addr));
+#if CONFIG_IDF_TARGET_ESP32C5
+	sprintf((char *)payload, "This is ESP32C5 (" MACSTR ")", MAC2STR(bt_mac_addr));
+	size_t payload_length = strlen((char *)payload);
+#endif
 #if CONFIG_IDF_TARGET_ESP32C6
-	//strcpy((char *)payload, "This is ESP32C6");
 	sprintf((char *)payload, "This is ESP32C6 (" MACSTR ")", MAC2STR(bt_mac_addr));
 	size_t payload_length = strlen((char *)payload);
 #endif
 #if CONFIG_IDF_TARGET_ESP32H2
-	//strcpy((char *)payload, "This is ESP32H2");
 	sprintf((char *)payload, "This is ESP32H2 (" MACSTR ")", MAC2STR(bt_mac_addr));
 	size_t payload_length = strlen((char *)payload);
 #endif

@@ -13,7 +13,8 @@ ESP-IDF V5.0 or later.
 ESP-IDF V4.4 release branch reached EOL in July 2024.   
 
 # Hardware requirements
-Two sets of ESP32C6 or ESP32H2 development boards.   
+Two sets of ESP32C5 or ESP32C6 or ESP32H2 development boards.   
+They support the IEEE 802.15.4-2015 protocol.   
 
 # Installation
 ```

@@ -23,8 +23,9 @@ menu "Application Configuration"
 		depends on MANUAL_SETTING
 		hex "My Address (hex)"
 		range 0x0 0xfffe
-		default 0x1111 if IDF_TARGET_ESP32C6
-		default 0x2222 if IDF_TARGET_ESP32H2
+		default 0x1111 if IDF_TARGET_ESP32C5
+		default 0x2222 if IDF_TARGET_ESP32C6
+		default 0x3333 if IDF_TARGET_ESP32H2
 		help
 			My Address.
 
