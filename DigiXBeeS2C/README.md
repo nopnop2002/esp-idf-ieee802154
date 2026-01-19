@@ -34,10 +34,10 @@ Now you are ready to receive.
 ![digi-xbee-s2c-11](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/97b39733-1dc5-4db0-94c3-cf26ef82e7e8)   
 
 Receives data from ESP32.
-![Image](https://github.com/user-attachments/assets/8c287195-1b25-4f7e-b8eb-dc7129ca2f95)
+![Image](https://github.com/user-attachments/assets/ae2aecf1-c74e-4522-b88b-c7805b18786a)   
 
 Add send packet.   
-![digi-xbee-s2c-12](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/66ef22ce-ade6-4265-94fc-7009abab099c)   
+![Image](https://github.com/user-attachments/assets/9e6fe5ee-dc8f-4fc8-be61-e8259bbba58c)   
 ![digi-xbee-s2c-13](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/24108a63-d753-4bc8-9c19-225317dc190e)   
 
 Send selected packet.   
