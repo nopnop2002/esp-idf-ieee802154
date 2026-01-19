@@ -92,21 +92,35 @@ static void send_packet_task(void *pvParameters) {
 	uint8_t payload[128];
 
 	// Read Bluetooth MAC address
-	uint8_t mac[6] = {0};
-	ESP_ERROR_CHECK(esp_read_mac(mac, ESP_MAC_BT));
-	ESP_LOGI(pcTaskGetName(NULL), "mac=" MACSTR, MAC2STR(mac));
+	uint8_t bt_mac_addr[6] = {0};
+	ESP_ERROR_CHECK(esp_read_mac(bt_mac_addr, ESP_MAC_BT));
+	ESP_LOGI(pcTaskGetName(NULL), "bt_mac_addr=" MACSTR, MAC2STR(bt_mac_addr));
 #if CONFIG_IDF_TARGET_ESP32C6
 	//strcpy((char *)payload, "This is ESP32C6");
-	sprintf((char *)payload, "This is ESP32C6 (" MACSTR ")", MAC2STR(mac));
+	sprintf((char *)payload, "This is ESP32C6 (" MACSTR ")", MAC2STR(bt_mac_addr));
 	size_t payload_length = strlen((char *)payload);
 #endif
 #if CONFIG_IDF_TARGET_ESP32H2
 	//strcpy((char *)payload, "This is ESP32H2");
-	sprintf((char *)payload, "This is ESP32H2 (" MACSTR ")", MAC2STR(mac));
+	sprintf((char *)payload, "This is ESP32H2 (" MACSTR ")", MAC2STR(bt_mac_addr));
 	size_t payload_length = strlen((char *)payload);
 #endif
+
 	while (true) {
+#if 1
 		ieee802154_send_short(peer_short, payload, payload_length);
+#else
+		uint8_t dst_long[8];
+		dst_long[0] = 0xfc;
+		dst_long[1] = 0x01;
+		dst_long[2] = 0x2c;
+		dst_long[3] = 0xff;
+		dst_long[4] = 0xfe;
+		dst_long[5] = 0xe3;
+		dst_long[6] = 0xae;
+		dst_long[7] = 0xc8;
+		ieee802154_send_long(dst_long, payload, payload_length);
+#endif
 		vTaskDelay(pdMS_TO_TICKS(5000));
 	}
 
@@ -140,12 +154,12 @@ void app_main() {
 	ESP_ERROR_CHECK(esp_ieee802154_set_channel(CONFIG_IEEE802514_CHANNEL));
 
 	// Set long address to the mac address
-	uint8_t mac_addr[8] = {0};
-	esp_read_mac(mac_addr, ESP_MAC_IEEE802154);
+	uint8_t ieee_mac_addr[8] = {0};
+	ESP_ERROR_CHECK(esp_read_mac(ieee_mac_addr, ESP_MAC_IEEE802154));
 	uint8_t eui64_rev[8] = {0};
 	for (int i=0; i<8; i++) {
-		eui64_rev[7-i] = mac_addr[i];
-		ESP_LOGD(TAG, "mac_addr[%d]=0x%x", i, mac_addr[i]);
+		eui64_rev[7-i] = ieee_mac_addr[i];
+		ESP_LOGI(TAG, "ieee_mac_addr[%d]=0x%x", i, ieee_mac_addr[i]);
 	}
 	esp_ieee802154_set_extended_address(eui64_rev);
 
@@ -155,12 +169,12 @@ void app_main() {
 	esp_ieee802154_set_short_address(CONFIG_IEEE802514_MY_ADDR);
 #else
 	// Read Bluetooth MAC address
-	uint8_t mac[6] = {0};
-	//ESP_ERROR_CHECK(esp_read_mac(mac, 2));
-	ESP_ERROR_CHECK(esp_read_mac(mac, ESP_MAC_BT));
-	ESP_LOGI(TAG, "mac=" MACSTR, MAC2STR(mac));
-	uint16_t my_short_address = mac[4] * 256 + mac[5];
-	ESP_LOGI(TAG, "mac[4]=0x%x mac[5]=0x%x", mac[4], mac[5]);
+	uint8_t bt_mac_addr[6] = {0};
+	//ESP_ERROR_CHECK(esp_read_mac(bt_mac_addr, 2));
+	ESP_ERROR_CHECK(esp_read_mac(bt_mac_addr, ESP_MAC_BT));
+	ESP_LOGI(TAG, "bt_mac_addr=" MACSTR, MAC2STR(bt_mac_addr));
+	uint16_t my_short_address = bt_mac_addr[4] * 256 + bt_mac_addr[5];
+	ESP_LOGI(TAG, "bt_mac_addr[4]=0x%x bt_mac_addr[5]=0x%x", bt_mac_addr[4], bt_mac_addr[5]);
 	ESP_LOGI(TAG, "my_short_address=0x%x", my_short_address);
 	esp_ieee802154_set_short_address(my_short_address);
 #endif
