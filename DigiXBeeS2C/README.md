@@ -42,7 +42,7 @@ Open port.
 Now you are ready to receive.   
 ![digi-xbee-s2c-11](https://github.com/nopnop2002/esp-idf-ieee802154/assets/6020549/97b39733-1dc5-4db0-94c3-cf26ef82e7e8)   
 
-Receives data from ESP32.
+XBeeS2c receive packet from ESP32.   
 ![Image](https://github.com/user-attachments/assets/ae2aecf1-c74e-4522-b88b-c7805b18786a)   
 
 Add send packet.   
