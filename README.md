@@ -39,9 +39,10 @@ idf.py flash monitor
 
 ![Image](https://github.com/user-attachments/assets/202f45ca-dd25-4f19-ad0b-a33ae7677e8f)
 - My Address   
- It must be unique on the sending and receiving sides.   
  By default it is automatically generated from the Bluetooth MAC address.   
+ If the BT's MAC address is 0xfc, 0x01, 0x2c, 0xe3, 0xb5, or 0xae, then My Address is 0xb5ae.   
  You can specify a specific address.   
+ It must be unique on the sending and receiving sides.   
 
 ![Image](https://github.com/user-attachments/assets/ab678604-fdea-42c7-a98a-1efb0e05c011)
 - Show details of received packets   
