@@ -15,7 +15,7 @@ menu "Application Configuration"
 
 	config MANUAL_SETTING
 		bool "You specify My Address"
-		default false
+		default n
 		help
 			You specify My Address.
 
